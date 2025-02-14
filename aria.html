@@ -85,7 +85,9 @@
       <p>Contenido Modal</p>
       <button onclick="closeModal()">Cerrar</button>
     </div>
-    <button onclick="openModal()">Abrir</button>
+    <div>
+      <button onclick="openModal()">Abrir</button>
+    </div>
     <script>
       const openModal = () => {
         const modal = document.getElementById("modal");
@@ -94,7 +96,7 @@
       };
       const closeModal = () => {
         const modal = document.getElementById("modal");
-        modal.hasAttribute = true;
+        modal.hidden = true;
       };
     </script>
 

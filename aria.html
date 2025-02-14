@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atributos ARIA</title>
+  </head>
+  <body>
+    <!-- aria-label: Proporciona una etiqueta descriptiva para elementos que no tienen texto visible -->
+    <button aria-label="cerrar ventana" onclick="closeMOdal()">X</button>
+    <!-- role: -->
+    <h3>Roles</h3>
+    <div role="navegation">
+      <ul>
+        <li><a href="#home">Inicio</a></li>
+        <li><a href="#about">Acerca de</a></li>
+      </ul>
+    </div>
+    <!-- propiedades de estado: la primera le indica el estado y la segunda asocia el término con la etiqueta.
+     Si observamos, se indica el id de la etiqueta -->
+    <input type="checkbox" id="terminos" aria-checked="false" aria-labelledby="terminos-etiqueta" /><label
+      for="terminos-etiqueta"
+      id="terminos-etiqueta"
+      >Acepto los términos</label
+    >
+    <!-- En JavaScript podremos utilizar la etiqueta anterior de forma dinámica -->
+    <button id="toggleButton" aria-pressed="false" onclick="toggleButton()">Activar</button>
+    <script>
+      const toggleButton = () => {
+        const button = document.getElementById("toggleButton");
+        const isPressed = button.getAttribute("aria-pressed") === "true";
+        button.setAttribute("aria-pressed", !isPressed);
+        button.textContent = isPressed ? "Activar" : "Desactivar";
+      };
+    </script>
+    <!-- Aria en CSS -->
+    <style>
+      button[aria-pressed="true"] {
+        background-color: #4caf50;
+        color: white;
+      }
+      button[aria-pressed="false"] {
+        background-color: red;
+        color: white;
+      }
+    </style>
+    <!-- Anuncio de cambios o notificaciones -->
+    <div aria-live="polite" id="liveRegion">
+      <!-- el contenido que será anunciado por los lectores de pantalla -->
+    </div>
+    <script>
+      const updateLiveRegion = (message) => {
+        const liveRegion = document.getElementById("liveRegion");
+        liveRegion.textContent = message;
+      };
+      // mensaje
+      updateLiveRegion("Nuevo mensaje recibido");
+    </script>
+    <!-- Se podría utilizar el aria-live que no interrumpe al usuario, y el polite.
+     aria-live= assertive que detiene y notifica cambios inmediatos-->
+
+    <h3>Menú desplegable</h3>
+    <!-- Indicar al usuario que tenemos un menú desplegable -->
+    <button id="menuButton" aria-haspopup="true" aria-expanded="false" onclick="toggleButton2()">Menu</button>
+    <ul id="menu" role="menu" aria-labelledby="menuButton" hidden>
+      <li><a href="#item1">Opción 1</a></li>
+      <li><a href="#item2">Opción 2</a></li>
+    </ul>
+    <script>
+      const toggleButton2 = () => {
+        const menu = document.getElementById("menu");
+        const isExpanded = menu.hidden;
+        menu.hidden = !isExpanded;
+        document.getElementById("menuButton").setAttribute("aria-expanded", isExpanded);
+      };
+    </script>
+    <!-- Descripción adicional -->
+    <label for="password">Contraseña</label>
+    <input type="password" id="password" aria-describedby="passwordHelp" />
+    <span id="passwordHelp">La contraseña debe tener al menos 8 caracteres</span>
+
+    <!-- Modal -->
+    <div id="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+      <h2 id="modalTitle">Título modal</h2>
+      <p>Contenido Modal</p>
+      <button onclick="closeModal()">Cerrar</button>
+    </div>
+    <button onclick="openModal()">Abrir</button>
+    <script>
+      const openModal = () => {
+        const modal = document.getElementById("modal");
+        modal.hidden = false;
+        modal.focus();
+      };
+      const closeModal = () => {
+        const modal = document.getElementById("modal");
+        modal.hasAttribute = true;
+      };
+    </script>
+
+    <!-- Barra de progreso -->
+    <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Progreso 50%</div>
+  </body>
+</html>
